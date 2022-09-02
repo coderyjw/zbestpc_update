@@ -1,2 +1,2 @@
-console.log("zbestpc");
-console.log("zbestpc2");
+import "./css/public.css";
+import "./css/index.css";
