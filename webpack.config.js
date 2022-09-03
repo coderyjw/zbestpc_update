@@ -8,7 +8,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: {
     index: "./src/index.js",
     login: "./src/login.js",
@@ -28,6 +28,18 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+    splitChunks: {
+      chunks: "all",
+      minSize: 300 * 1024,
+      name: "common",
+      cacheGroups: {
+        jquery: {
+          name: "jquery",
+          test: /jquery\.js/,
+          chunks: "all",
+        },
+      },
+    },
   },
   module: {
     rules: [
