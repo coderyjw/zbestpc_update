@@ -1,9 +1,11 @@
 <template>
-  <div>App</div>
+  <router-view></router-view>
 </template>
 
 <script>
-export default {};
+export default {
+  components: {},
+};
 </script>
 
 <style scoped></style>
