@@ -1,17 +1,17 @@
 const path = require("path");
-const htmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-
+const { VueLoaderPlugin } = require("vue-loader");
 module.exports = {
   mode: "development",
   entry: {
-    index: path.resolve(__dirname, "../src/index.js"),
-    login: path.resolve(__dirname, "../src/login.js"),
+    home: path.resolve(__dirname, "../src/mpa/home.js"),
+    login: path.resolve(__dirname, "../src/mpa/login.js"),
   },
   output: {
     filename: "js/[name].js",
@@ -66,17 +66,21 @@ module.exports = {
           esModule: false,
         },
       },
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
+      },
     ],
   },
   plugins: [
-    new htmlWebpackPlugin({
-      filename: "index.html",
-      template: path.resolve(__dirname, "../src/index.html"),
-      chunks: ["index"],
+    new HtmlWebpackPlugin({
+      filename: "home.html",
+      template: path.resolve(__dirname, "../public/index.html"),
+      chunks: ["home"],
     }),
-    new htmlWebpackPlugin({
+    new HtmlWebpackPlugin({
       filename: "login.html",
-      template: path.resolve(__dirname, "../src/login.html"),
+      template: path.resolve(__dirname, "../public/index.html"),
       chunks: ["login"],
     }),
     new CopyPlugin({
@@ -96,5 +100,6 @@ module.exports = {
       jQuery: "jquery",
     }),
     new CleanWebpackPlugin(),
+    new VueLoaderPlugin(),
   ],
 };
