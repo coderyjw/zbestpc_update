@@ -71,12 +71,12 @@ module.exports = {
   plugins: [
     new htmlWebpackPlugin({
       filename: "index.html",
-      template: "./src/index.html",
+      template: path.resolve(__dirname, "../src/index.html"),
       chunks: ["index"],
     }),
     new htmlWebpackPlugin({
       filename: "login.html",
-      template: "./src/login.html",
+      template: path.resolve(__dirname, "../src/login.html"),
       chunks: ["login"],
     }),
     new CopyPlugin({
