@@ -6,10 +6,11 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    bundle: "./src/index.js",
+    index: "./src/index.js",
+    login: "./src/login.js",
   },
   output: {
-    filename: "[hash].js",
+    filename: "js/[name].js",
     path: path.resolve(__dirname, "./dist"),
   },
   module: {
@@ -36,10 +37,12 @@ module.exports = {
     new htmlWebpackPlugin({
       filename: "index.html",
       template: "./src/index.html",
+      chunks: ["index"],
     }),
     new htmlWebpackPlugin({
       filename: "login.html",
       template: "./src/login.html",
+      chunks: ["login"],
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
