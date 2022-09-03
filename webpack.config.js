@@ -2,7 +2,7 @@ const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-
+const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
@@ -12,6 +12,14 @@ module.exports = {
   output: {
     filename: "js/[name].js",
     path: path.resolve(__dirname, "./dist"),
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "dist"),
+    },
+    compress: true,
+    port: 9000,
+    hot: true,
   },
   module: {
     rules: [
@@ -43,6 +51,14 @@ module.exports = {
       filename: "login.html",
       template: "./src/login.html",
       chunks: ["login"],
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "./src/img"),
+          to: path.resolve(__dirname, "./dist/img"),
+        },
+      ],
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
