@@ -3,6 +3,8 @@ const htmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
   mode: "development",
   entry: {
@@ -25,7 +27,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -59,6 +61,10 @@ module.exports = {
           to: path.resolve(__dirname, "./dist/img"),
         },
       ],
+    }),
+    new MiniCssExtractPlugin({
+      filename: "css/[name].css",
+      chunkFilename: "css/[name].chunk.[hash:6].css",
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
