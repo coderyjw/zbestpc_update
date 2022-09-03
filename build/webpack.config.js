@@ -10,12 +10,12 @@ const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    index: "./src/index.js",
-    login: "./src/login.js",
+    index: path.resolve(__dirname, "../src/index.js"),
+    login: path.resolve(__dirname, "../src/login.js"),
   },
   output: {
     filename: "js/[name].js",
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "../dist"),
   },
   devServer: {
     static: {
@@ -82,8 +82,8 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, "./src/img"),
-          to: path.resolve(__dirname, "./dist/img"),
+          from: path.resolve(__dirname, "../src/img"),
+          to: path.resolve(__dirname, "../dist/img"),
         },
       ],
     }),
